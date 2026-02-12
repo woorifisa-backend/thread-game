@@ -14,51 +14,44 @@ public class InputTask implements Runnable {
 
     @Override
     public void run() {
+        // 게임 시작 시 전광판에 메시지 표시
+        state.addLog("🎮 게임 시작! Enter를 눌러 공격하세요!");
+
         while (state.isRunning()) {
-        	
-        	// 1. 유저 기절 체크
-        	if (state.isPlayerStunned()) {
+            // 1. 유저 기절 체크 (기절 중엔 입력을 막고 대기)
+            if (state.isPlayerStunned()) {
                 try {
-                	System.out.println("기절 중");
-                    Thread.sleep(200); // 1초마다 기절 풀렸는지 체크
+                    Thread.sleep(200); 
                 } catch (InterruptedException e) {}
                 continue; 
             }
-            
-            // 1. 엔터 입력 대기
-            scanner.nextLine();
 
-            // 2. 게임 중단 여부 재확인
+            // 2. 입력 대기 (이게 있어야 사용자가 Enter를 칠 때까지 기다립니다)
+            scanner.nextLine();
             if (!state.isRunning()) break;
 
-            // 3. 랜덤 데미지 계산 (가중치: 10 ~ 30)
+            // 3. 데미지 계산 및 공격 실행
             int damage = 10 + random.nextInt(21);
+            state.attackBoss(damage);
 
-            
-            // 4. 25 이상이면 크리티컬 발생 -> 보스 5초 기절
+            // 4. 크리티컬 판정 (25 이상) -> 게임 화면 전광판에 출력
             if (damage >= 25) {
-                state.addLog("🔥 CRITICAL! 보스가 5초간 기절합니다!");
-                System.out.println(" >> 🔥 [CRITICAL] 강력한 일격! 보스가 기절했습니다!");
+                state.addLog("🔥 [CRITICAL] 보스가 5초간 기절합니다!");
                 
-                // 새로운 스레드를 열어 5초 뒤에 기절을 풀어줌
+                // 보스 기절 타이머 스레드
                 new Thread(() -> {
                     state.setBossStunned(true);
                     try { Thread.sleep(5000); } catch (InterruptedException e) {}
                     state.setBossStunned(false);
-                    state.addLog("⚠️ 보스가 정신을 차렸습니다!");
+                    state.addLog("⚠️ 보스가 기절에서 깨어났습니다!");
                 }).start();
+            } else {
+                // 일반 공격 메시지를 전광판(로그 큐)으로 전송
+                state.addLog("⚔️ 유저 공격! -" + damage + "hp (Boss HP: " + state.getBossHp() + ")");
             }
-            
-            // 5. 보스 공격 (새로운 GameState 방식: synchronized 메서드 호출)
-            state.attackBoss(damage);
 
-            // 6. 로그 추가 (이제 GameState가 로그 큐를 관리하므로 직접 메시지 전달)
-            state.addLog("💥 유저 공격: -" + damage + "(남은 HP: " + state.getBossHp() + ")");
-
-            // 7. 콘솔에 즉시 표시 (로그 큐와 별개로 사용자 피드백 제공)
-            System.out.printf(" >> ⚔️ [공격 성공!] 보스에게 %d의 데미지를 입혔습니다! (남은 HP: %d)\n", 
-                    damage, state.getBossHp());
+            // 5. 내 개발용 콘솔에는 간단히 표시 (선택 사항)
+            System.out.println("Log sent to Game Screen: -" + damage);
         }
     }
 }
-

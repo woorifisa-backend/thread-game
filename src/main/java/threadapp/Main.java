@@ -13,6 +13,10 @@ public class Main {
 //        Thread bossThread = new Thread(new BossTask(state), "BossThread");
 //        Thread regenThread = new Thread(new RegenTask(state), "RegenThread");
 
+        
+        Thread renderThread = new Thread(new RenderTask(state), "RenderThread");
+        
+        renderThread.start();
         inputThread.start();
 //        bossThread.start();
 //        regenThread.start();
@@ -20,6 +24,7 @@ public class Main {
         inputThread.join();
 //        bossThread.join();
 //        regenThread.join();
+        renderThread.interrupt();
 
         System.out.println("\n🏁 ===== GAME OVER =====");
     }
