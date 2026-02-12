@@ -28,26 +28,7 @@ public class BossTask implements Runnable {
                     gameState.setPlayerStunned(true);
 					Thread stunSetting = new Thread(() -> {
 						try {
-							Thread.sleep(3000);
-							
-							
-							 
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
+							Thread.sleep(3000);			
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
