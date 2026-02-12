@@ -11,13 +11,13 @@ public class Main {
         // BossTask는 이전에 작성하신 것 사용 (5초 기절 로직 포함된 것)
         Thread bossThread = new Thread(new BossTask(gameState), "BossThread");
         Thread inputThread = new Thread(new InputTask(gameState), "InputThread");
-        Thread regenThread = new Thread(new RegenTask(gameState), "RegenThread");
+//        Thread regenThread = new Thread(new RegenTask(gameState), "RegenThread");
         Thread renderThread = new Thread(new RenderTask(gameState), "RenderThread");
 
         // 3. 스레드 시작
         renderThread.start(); // 화면부터 켜고
         bossThread.start();
-        regenThread.start();
+//        regenThread.start();
         inputThread.start();  // 입력 대기
 
         try {
@@ -26,7 +26,7 @@ public class Main {
             
             // 게임 종료 시 다른 스레드들도 정리
             bossThread.interrupt();
-            regenThread.interrupt();
+//            regenThread.interrupt();
             renderThread.interrupt();
             
         } catch (InterruptedException e) {
