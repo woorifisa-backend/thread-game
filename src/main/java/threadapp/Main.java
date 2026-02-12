@@ -10,16 +10,16 @@ public class Main {
         GameState state = new GameState();
 
         Thread inputThread = new Thread(new InputTask(state), "InputThread");
-        Thread bossThread = new Thread(new BossTask(state), "BossThread");
-        Thread regenThread = new Thread(new RegenTask(state), "RegenThread");
+//        Thread bossThread = new Thread(new BossTask(state), "BossThread");
+//        Thread regenThread = new Thread(new RegenTask(state), "RegenThread");
 
         inputThread.start();
-        bossThread.start();
-        regenThread.start();
+//        bossThread.start();
+//        regenThread.start();
 
         inputThread.join();
-        bossThread.join();
-        regenThread.join();
+//        bossThread.join();
+//        regenThread.join();
 
         System.out.println("\n🏁 ===== GAME OVER =====");
     }
