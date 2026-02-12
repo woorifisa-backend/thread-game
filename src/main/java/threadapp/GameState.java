@@ -10,6 +10,8 @@ public class GameState {
     private int bossHp;
     private final int MAX_PLAYER_HP = 100;
     private final int MAX_BOSS_HP = 200;
+    private volatile boolean playerStunned = false; // 유저 기절
+    private volatile boolean bossStunned = false; // 보스 기절
     
     private boolean isRunning = true;
 
@@ -100,6 +102,20 @@ public class GameState {
 
     public synchronized boolean isRunning() {
         return isRunning;
+    }
+    
+    public synchronized void setPlayerStunned(boolean stunned) {
+    	this.playerStunned = stunned;
+    }
+    public synchronized boolean isPlayerStunned() {
+    	return playerStunned;
+    }
+    
+    public synchronized void setBossStunned(boolean stunned) {
+    	this.bossStunned = stunned;
+    }
+    public synchronized boolean isBossStunned() {
+    	return bossStunned;
     }
     
     public void stop() {
