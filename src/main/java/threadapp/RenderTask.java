@@ -29,10 +29,10 @@ public class RenderTask implements Runnable {
                 break;
             }
         }
-        
+
         // 게임 종료 후 마지막 상태 그리기
         renderFrame();
-        
+
         // 커서 다시 보이기
         System.out.println("\n" + RESET + "엔터를 누르면 종료됩니다...");
         System.out.print("\u001B[?25h");
