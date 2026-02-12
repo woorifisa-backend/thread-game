@@ -4,8 +4,8 @@ public class RegenTask implements Runnable {
 
     private final GameState state;
 
-    private static final int HEAL_AMOUNT = 5;
-    private static final int INTERVAL_MS = 2000;
+    private static final int HEAL_AMOUNT = 20;
+    private static final int INTERVAL_MS = 4000;
 
     public RegenTask(GameState state) {
         this.state = state;
@@ -13,7 +13,7 @@ public class RegenTask implements Runnable {
 
     @Override
     public void run() {
-        state.addLog("💖 힐러 스레드 출격! 2초마다 플레이어를 회복합니다.");
+        state.addLog("\u001B[36m💖 힐러 출격! 4초마다 플레이어를 회복합니다.\u001B[0m");
 
         while (state.isRunning()) {
 
@@ -33,7 +33,7 @@ public class RegenTask implements Runnable {
                 continue;
             }
 
-            state.addLog("💖 [힐러] HP +" + (after - before) + " 회복!");
+            state.addLog("\u001B[36m💖 [힐러] HP +" + (after - before) + " 회복!\u001B[0m");
         }
     }
 }
