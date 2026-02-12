@@ -24,7 +24,7 @@ public class RenderTask implements Runnable {
         while (state.isRunning()) {
             try {
                 renderFrame();
-                Thread.sleep(500); // 20 FPS (0.05초마다 갱신)
+                Thread.sleep(50); // 20 FPS (0.05초마다 갱신)
             } catch (InterruptedException e) {
                 break;
             }
