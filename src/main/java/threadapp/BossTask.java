@@ -10,65 +10,46 @@ public class BossTask implements Runnable {
 
 	@Override
 	public void run() {
-		while (gameState.isRunning()) {			
+		while (gameState.isRunning()) {
 			try {
 				Thread.sleep(1500);
-				
+
 				if (gameState.isBossStunned()) {
-					gameState.addLog("😵 [보스] 으악! 기절했습니다... zzz");
-					Thread.sleep(5000);
+					gameState.addLog("\u001B[33m😵 [보스] 으악! 기절했습니다... zzz\u001B[0m");
+					Thread.sleep(3500);
 					continue;
 				}
 
-				int dmg = (int) (Math.random() * 20) + 10;
-				if (dmg >= 25) {
+				int dmg = (int) (Math.random() * 30) + 20;
+				if (dmg >= 35) {
 					gameState.attackPlayer(dmg);
-					gameState.addLog("🔥 [보스] \u001B[33m크리티컬!! " + dmg + "의 데미지!\u001B[0m");
+					gameState.addLog("\u001B[31m🔥 [보스->유저] 공격! -" + dmg + "HP (Boss HP: " + gameState.getPlayerHp() + ")\u001B[0m");
 
-                    gameState.setPlayerStunned(true);
-					Thread stunSetting = new Thread(() -> {
+					gameState.setPlayerStunned(true);
+					new Thread(() -> {
 						try {
 							Thread.sleep(3000);
-							
-							
-							 
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
 						gameState.setPlayerStunned(false);
-						gameState.addLog("플레이어가 정신을 차렸습니다.");
+						gameState.addLog("\u001B[33m⚠️ 유저가 깨어났습니다!\u001B[0m");
 					});
 
 				} else {
 					gameState.attackPlayer(dmg);
-					gameState.addLog("👊 [보스] \u001B[33m공격! " + dmg + "의 데미지.\u001B[0m");
+					gameState.addLog("⚔️ [보스->유저] 공격! -" + dmg + "HP (Boss HP: " + gameState.getPlayerHp() + ")");
 				}
 			} catch (InterruptedException e) {
 				break;
 			}
+			
+			if (gameState.getPlayerHp() == 0) {
+				gameState.stop();
+				gameState.addLog("💀 GAME OVER! 당신은 사망했습니다...");
+			}
 		}
 
-	}
-
-	private void sleep(int i) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }
