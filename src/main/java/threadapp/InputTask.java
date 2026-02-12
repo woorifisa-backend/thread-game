@@ -16,19 +16,22 @@ public class InputTask implements Runnable {
 	public void run() {
 		// 게임 시작 시 전광판에 메시지 표시
 		state.addLog("🎮 게임 시작! Enter를 눌러 공격하세요!");
-
+		
 		while (state.isRunning()) {
+			
 			scanner.nextLine();
+			
+			if (!state.isRunning())
+				break;
 			
 			// 1. 유저 기절 체크 (기절 중엔 입력을 막고 대기)
 			if(state.isPlayerStunned()) {
-            	state.addLog("\u001B[33m😵 [유저] 기절중... zzz\u001B[0m");
+            	state.addLog("\u001B[33m😵 [유저] 기절중...... zzz (User HP: " + state.getPlayerHp() + ")\u001B[0m");
             	continue;
             }
 
 			// 2. 입력 대기 (이게 있어야 사용자가 Enter를 칠 때까지 기다립니다)
-			if (!state.isRunning())
-				break;
+		
 
 			// 3. 데미지 계산 및 공격 실행
 			int damage = 10 + random.nextInt(21);
@@ -57,6 +60,7 @@ public class InputTask implements Runnable {
 				state.stop();
 				state.addLog("🎉 VICTORY! 보스를 처치했습니다!");
 			}
+			
 		}
 	}
 }

@@ -15,7 +15,7 @@ public class BossTask implements Runnable {
 				Thread.sleep(1500);
 
 				if (gameState.isBossStunned()) {
-					gameState.addLog("\u001B[33m😵 [보스] 으악! 기절했습니다... zzz\u001B[0m");
+					gameState.addLog("\u001B[33m😵 [보스] 으악! 기절했습니다.. (Boss HP: " + gameState.getBossHp() + ")\u001B[0m");
 					Thread.sleep(1500);
 					continue;
 				}
@@ -23,7 +23,7 @@ public class BossTask implements Runnable {
 				int dmg = (int) (Math.random() * 30) + 20;
 				if (dmg >= 35) {
 					gameState.attackPlayer(dmg);
-					gameState.addLog("\u001B[31m🔥 [보스->유저] 공격! -" + dmg + "HP (Boss HP: " + gameState.getPlayerHp() + ")\u001B[0m");
+					gameState.addLog("\u001B[31m🔥 [보스->유저] 공격! -" + dmg + "HP (User HP: " + gameState.getPlayerHp() + ")\u001B[0m");
 
 					gameState.setPlayerStunned(true);
 					new Thread(() -> {
@@ -38,7 +38,7 @@ public class BossTask implements Runnable {
 
 				} else {
 					gameState.attackPlayer(dmg);
-					gameState.addLog("⚔️ [보스->유저] 공격! -" + dmg + "HP (Boss HP: " + gameState.getPlayerHp() + ")");
+					gameState.addLog("⚔️ [보스->유저] 공격! -" + dmg + "HP (User HP: " + gameState.getPlayerHp() + ")");
 				}
 			} catch (InterruptedException e) {
 				break;
