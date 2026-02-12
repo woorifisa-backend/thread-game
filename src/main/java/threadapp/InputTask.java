@@ -18,13 +18,15 @@ public class InputTask implements Runnable {
 		state.addLog("🎮 게임 시작! Enter를 눌러 공격하세요!");
 
 		while (state.isRunning()) {
+			scanner.nextLine();
+			
 			// 1. 유저 기절 체크 (기절 중엔 입력을 막고 대기)
 			if(state.isPlayerStunned()) {
             	state.addLog("\u001B[33m😵 [유저] 기절중... zzz\u001B[0m");
+            	continue;
             }
 
 			// 2. 입력 대기 (이게 있어야 사용자가 Enter를 칠 때까지 기다립니다)
-			scanner.nextLine();
 			if (!state.isRunning())
 				break;
 
@@ -33,14 +35,14 @@ public class InputTask implements Runnable {
 			state.attackBoss(damage);
 
 			// 4. 크리티컬 판정 (25 이상) -> 게임 화면 전광판에 출력
-			if (damage >= 25) {
+			if (damage >= 27) {
 				state.addLog("\u001B[31m🔥 [유저->보스] 공격! -" + damage + "HP (Boss HP: " + state.getBossHp() + ")\u001B[0m");
 
 				// 보스 기절 타이머 스레드
 				new Thread(() -> {
 					state.setBossStunned(true);
 					try {
-						Thread.sleep(5000);
+						Thread.sleep(3000);
 					} catch (InterruptedException e) {
 					}
 					state.setBossStunned(false);

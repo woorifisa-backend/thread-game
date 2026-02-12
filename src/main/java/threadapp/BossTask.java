@@ -16,7 +16,7 @@ public class BossTask implements Runnable {
 
 				if (gameState.isBossStunned()) {
 					gameState.addLog("\u001B[33m😵 [보스] 으악! 기절했습니다... zzz\u001B[0m");
-					Thread.sleep(3500);
+					Thread.sleep(1500);
 					continue;
 				}
 
@@ -28,13 +28,13 @@ public class BossTask implements Runnable {
 					gameState.setPlayerStunned(true);
 					new Thread(() -> {
 						try {
-							Thread.sleep(3000);
+							Thread.sleep(2000);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
 						gameState.setPlayerStunned(false);
 						gameState.addLog("\u001B[33m⚠️ 유저가 깨어났습니다!\u001B[0m");
-					});
+					}).start();
 
 				} else {
 					gameState.attackPlayer(dmg);

@@ -9,7 +9,7 @@ public class GameState {
 	private int playerHp;
 	private int bossHp;
 	private final int MAX_PLAYER_HP = 100;
-	private final int MAX_BOSS_HP = 200;
+	private final int MAX_BOSS_HP = 500;
 	private volatile boolean playerStunned = false; // 유저 기절
 	private volatile boolean bossStunned = false; // 보스 기절
 
