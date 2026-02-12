@@ -121,9 +121,9 @@ public class GameState {
     public void stop() {
 		isRunning = false;
 	}
-    
-    // 큐는 그 자체로 Thread-safe 하므로 그냥 반환
-    public Queue<String> getLogQueue() {
-        return logQueue;
-    }
+
+	// 큐는 그 자체로 Thread-safe 하므로 그냥 반환
+	public Queue<String> getLogQueue() {
+		return logQueue;
+	}
 }

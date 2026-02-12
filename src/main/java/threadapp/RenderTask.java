@@ -52,8 +52,8 @@ public class RenderTask implements Runnable {
         // 3. 보스 상태 (기절 시 상태 표시 변경)
         int bHp = state.getBossHp();
         int maxBHp = state.getMaxBossHp();
-
-        String bossStatus = state.isBossStunned() ? YELLOW + "(:dizzy_face: STUNNED!)" + RESET : "";
+        
+        String bossStatus = state.isBossStunned() ? YELLOW + "(😵 STUNNED!)" + RESET : "";
         buffer.append(" [ BOSS ] HP: " + bHp + " / " + maxBHp + " " + bossStatus + "\n");
         buffer.append(drawBar(bHp, maxBHp, 40, RED)).append("\n\n");
 
@@ -73,7 +73,7 @@ public class RenderTask implements Runnable {
         int maxPHp = state.getMaxPlayerHp();
         buffer.append(" [ ME ]   HP: " + pHp + " / " + maxPHp + "\n");
         buffer.append(drawBar(pHp, maxPHp, 40, GREEN)).append("\n");
-
+        
         String status = pHp < 30 ? RED + "DANGER!" : GREEN + "GOOD";
         buffer.append(" Status: " + status + RESET + "\n");
 
@@ -110,6 +110,4 @@ public class RenderTask implements Runnable {
         sb.append("]").append(RESET);
         return sb.toString();
     }
-    
-    
 }
