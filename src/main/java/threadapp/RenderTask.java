@@ -74,7 +74,9 @@ public class RenderTask implements Runnable {
         buffer.append(" [ ME ]   HP: " + pHp + " / " + maxPHp + "\n");
         buffer.append(drawBar(pHp, maxPHp, 40, GREEN)).append("\n");
         
-        String status = pHp < 30 ? RED + "DANGER!" : GREEN + "GOOD";
+        String status = pHp < 30
+                ? RED + "DANGER!" + RESET
+                : GREEN + "GOOD" + RESET;
         buffer.append(" Status: " + status + RESET + "\n");
 
         // 5. 로그 창

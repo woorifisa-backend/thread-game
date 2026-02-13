@@ -9,8 +9,9 @@ public class GameState {
 	private int bossHp;
 	private final int MAX_PLAYER_HP = 100;
 	private final int MAX_BOSS_HP = 500;
-	private volatile boolean playerStunned = false; // 유저 기절
-	private volatile boolean bossStunned = false; // 보스 기절
+	private boolean playerStunned = false; // 유저 기절
+	private boolean bossStunned = false; // 보스 기절
+	private volatile int bossStunVersion = 0;
 
 	private boolean isRunning = true;
 
@@ -42,6 +43,20 @@ public class GameState {
 
 		if (this.playerHp < 0)
 			this.playerHp = 0;
+	}
+	
+	// 최신 스턴인지 판별
+	public synchronized int stunBossAndGetVersion() {
+	    bossStunned = true;
+	    bossStunVersion++;
+	    return bossStunVersion;
+	}
+	
+	// 최신 스턴이 있으면 해제 금지
+	public synchronized boolean tryClearBossStun(int version) {
+	    if (bossStunVersion != version) return false;
+	    bossStunned = false;
+	    return true;
 	}
 
 	// 플레이어 회복
