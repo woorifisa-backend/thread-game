@@ -18,7 +18,6 @@ public class RenderTask implements Runnable {
 
     @Override
     public void run() {
-        // 커서 숨기기 (터미널 설정)
         System.out.print("\u001B[?25l");
 
         while (state.isRunning()) {
@@ -41,15 +40,15 @@ public class RenderTask implements Runnable {
     private void renderFrame() {
         buffer.setLength(0); // 버퍼 비우기
 
-        // 1. 커서를 (0,0)으로 이동 (화면 지우기 대신 덮어쓰기 -> 깜빡임 방지)
+        // 커서를 (0,0)으로 이동 (화면 지우기 대신 덮어쓰기 -> 깜빡임 방지)
         buffer.append("\u001B[H");
 
-        // 2. 타이틀
+        // 타이틀
         buffer.append(RED + "========================================\n" + RESET);
         buffer.append(RED + "            BOSS RAID (THREAD)          \n" + RESET);
         buffer.append(RED + "========================================\n\n" + RESET);
 
-        // 3. 보스 상태 (기절 시 상태 표시 변경)
+        // 보스 상태 (기절 시 상태 표시 변경)
         int bHp = state.getBossHp();
         int maxBHp = state.getMaxBossHp();
         
@@ -68,7 +67,7 @@ public class RenderTask implements Runnable {
         buffer.append(CYAN + "       (    __    )       \n" + RESET);
         buffer.append("\n\n");
 
-        // 4. 플레이어 상태
+        // 플레이어 상태
         int pHp = state.getPlayerHp();
         int maxPHp = state.getMaxPlayerHp();
         buffer.append(" [ ME ]   HP: " + pHp + " / " + maxPHp + "\n");
@@ -77,7 +76,7 @@ public class RenderTask implements Runnable {
         String status = pHp < 30 ? RED + "DANGER!" : GREEN + "GOOD";
         buffer.append(" Status: " + status + RESET + "\n");
 
-        // 5. 로그 창
+        // 로그 창
         buffer.append("----------------------------------------\n");
         buffer.append(YELLOW + " [ LOG WINDOW ]\n" + RESET);
 
