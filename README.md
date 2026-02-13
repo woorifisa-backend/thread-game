@@ -4,12 +4,11 @@
 
 ## 🚀 Key Features
 
-### 1. 정교한 멀티스레드 설계
+### 멀티스레드 설계
 - **Thread-Safe Shared Resource**: 모든 스레드가 `GameState`라는 공유 객체를 참조하며, `synchronized`를 통해 데이터 무결성을 유지합니다.
-- **Non-blocking Logging**: `ConcurrentLinkedQueue`를 사용하여 로그 기록 스레드와 출력 스레드 간의 병목 현상을 해결했습니다.
-- **Asynchronous Logic**: 유저의 공격 대기 중에도 보스의 공격과 힐러의 회복은 독립적으로 진행됩니다.
+- **ConcurrentLinkedQueue**를 사용하여 로그 기록 스레드와 출력 스레드 간의 병목 현상을 해결했습니다.
 
-### 3. 기절(Stun) 및 상태 이상 시스템
+### 기절(Stun) 및 상태 이상 시스템
 - **동적 스레드 생성**: 크리티컬 공격 발생 시 별도의 타이머 스레드를 즉석에서 생성하여 일정 시간 후 상태를 원복시키는 비동기 로직을 구현했습니다.
 
 ---
