@@ -5,7 +5,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class GameState {
 
-	// 1. 공유 자원 (Primitive Type 사용)
 	private int playerHp;
 	private int bossHp;
 	private final int MAX_PLAYER_HP = 100;
@@ -15,8 +14,6 @@ public class GameState {
 
 	private boolean isRunning = true;
 
-	// 2. 로그 큐 (렌더링 스레드가 가져다 씀)
-	// 큐 자체는 스레드 안전한 것을 쓰는 게 좋습니다 (synchronized 블록 밖에서도 접근하므로)
 	private Queue<String> logQueue = new ConcurrentLinkedQueue<>();
 
 	public GameState() {
@@ -24,14 +21,10 @@ public class GameState {
 		this.bossHp = MAX_BOSS_HP;
 	}
 
-	// ========================================================
-	// 핵심 로직: 상태 변경 (WRITE) - 반드시 synchronized 필요
-	// ========================================================
-
 	// 플레이어가 보스를 공격
 	public synchronized void attackBoss(int dmg) {
 		if (!isRunning)
-			return; // 게임 끝났으면 무시
+			return; 
 
 		this.bossHp -= dmg;
 
@@ -58,7 +51,6 @@ public class GameState {
 
 		this.playerHp += amount;
 
-		// 최대 체력 초과 방지
 		if (this.playerHp > MAX_PLAYER_HP) {
 			this.playerHp = MAX_PLAYER_HP;
 		}
@@ -73,10 +65,6 @@ public class GameState {
 		}
 	}
 
-	// ========================================================
-	// 조회 로직 (READ) - 읽을 때도 synchronized 필요
-	// (쓰는 도중에 읽으면 엉뚱한 값을 읽을 수 있음 - 가시성 문제)
-	// ========================================================
 
 	public synchronized int getPlayerHp() {
 		return playerHp;
@@ -118,7 +106,6 @@ public class GameState {
 		isRunning = false;
 	}
 
-	// 큐는 그 자체로 Thread-safe 하므로 그냥 반환
 	public Queue<String> getLogQueue() {
 		return logQueue;
 	}
