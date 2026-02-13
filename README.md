@@ -18,12 +18,12 @@
 
 | 클래스 | 역할 | 핵심 기술 |
 | :--- | :--- | :--- |
-| **`Main`** | 스레드 생명주기 관리 | `Thread.start()`, `join()`, `interrupt()` |
-| **`GameState`** | 공유 자원 및 동기화 메서드 | `synchronized`, `volatile`, `ConcurrentLinkedQueue` |
-| **`InputTask`** | 유저 입력 및 공격 처리 | `Scanner`, `Condition Branching` |
-| **`BossTask`** | 보스 AI 루프 및 공격 | `Thread.sleep()`, `Random Probability` |
-| **`RenderTask`** | UI/UX 렌더링 엔진 | `ANSI Escape Codes`, `String Formatting` |
-| **`RegenTask`** | 주기적인 자동 회복 | `Periodic Task Execution` |
+| **`Main`** | 스레드 생명주기 관리 |
+| **`GameState`** | 공유 자원 및 동기화 메서드 |
+| **`InputTask`** | 유저 입력 및 공격 처리 |
+| **`BossTask`** | 보스 AI 루프 및 공격 |
+| **`RenderTask`** | UI/UX 렌더링 엔진 |
+| **`RegenTask`** | 주기적인 자동 회복 |
 
 ---
 
