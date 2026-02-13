@@ -1,6 +1,6 @@
 # ⚔️ Java Multi-threaded Raid Game
 
-자바의 **멀티스레딩(Multi-threading)**과 **동기화(Synchronization)** 기법을 활용하여 제작한 실시간 콘솔 액션 RPG 게임입니다. 유저, 보스, 힐러, 렌더러가 각각 독립된 스레드에서 상호작용하며 실시간 전투 경험을 제공합니다.
+자바의 멀티스레딩(Multi-threading)과 동기화(Synchronization) 기법을 활용하여 제작한 실시간 콘솔 액션 RPG 게임입니다. 유저, 보스, 힐러, 렌더러가 각각 독립된 스레드에서 상호작용하며 실시간 전투 경험을 제공합니다.
 
 ## 🚀 Key Features
 
